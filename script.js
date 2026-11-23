@@ -1,693 +1,298 @@
 
-/* ==========================================================
-   PIWAN PRODUCTION
-   BOUTIQUE - PHOTOS - PANIER - PACK - AVIS - STOCK
+// --- VOS IDENTIFIANTS ADMINISTRATEUR ---
+const ADMIN_EMAIL = "ndongpierrewaly03@gmail.com";
+const ADMIN_PASS = "piwan_savons221";
 
-   MODIFIER LES PHOTOS DANS LA SECTION PHOTO_PATHS
-   ========================================================== */
-
-/* =========================
-   1. PHOTOS DU SITE
-   ========================= */
-
-const PHOTO_PATHS = {
-  carottePot: "assets/pot-carotte.webp",
-  carotteIngredient: "assets/ing-carotte.webp",
-  carotteLabel: "assets/carotte-label.jpg",
-
-  nebedayPot: "assets/pot-nebeday.webp",
-  nebedayIngredient: "assets/ing-moringa.webp",
-  nebedayLabel: "assets/nebeday-label.jpg",
-
-  mbeurbeufPot: "assets/pot-mbeurbeuf.webp",
-  mbeurbeufIngredient: "assets/ing-mbeurbeuf.webp",
-  mbeurbeufLabel: "assets/mbeurbeuf-label.jpg",
-
-  accueil: "assets/moringa.jpg",
-  philosophie: "assets/mbeurbeuf-plant.jpg",
-  pack: "assets/hero-trio.webp"
-};
-
-/* =========================
-   2. CONFIGURATION
-   ========================= */
-
-const WHATSAPP_NUMBER = "221776661187";
-const LOW_STOCK_LIMIT = 5;
-const PACK_PRICE_DEFAULT = 4000;
-const PACK_ID = "piwan-pack";
-
-/* =========================
-   3. PRODUITS
-   ========================= */
-
-const defaultProducts = [
-  {
-    id: "carotte",
-    name: "Savon Carotte",
-    short: "Un savon artisanal inspiré de la carotte.",
-    price: 1500,
-    cost: 0,
-    weight: "250 g",
-    img: PHOTO_PATHS.potcarotte,
-    label: PHOTO_PATHS.carotteLabel,
-    ingredient: PHOTO_PATHS.carotteIngredient,
-    badge: "À la carotte",
-    emoji: "🥕",
-    stock: 20,
-    active: true
-  },
-  {
-    id: "nebeday",
-    name: "Savon Nébéday",
-    short: "Un savon artisanal inspiré du moringa.",
-    price: 1500,
-    cost: 0,
-    weight: "250 g",
-    img: PHOTO_PATHS.potnebeday,
-    label: PHOTO_PATHS.nebedayLabel,
-    ingredient: PHOTO_PATHS.ingnebeday,
-    badge: "Au moringa",
-    emoji: "🌿",
-    stock: 20,
-    active: true
-  },
-  {
-    id: "mbeurbeuf",
-    name: "Savon Mbeurbeuf",
-    short: "Un savon artisanal inspiré de la plante Mbeurbeuf.",
-    price: 1500,
-    cost: 0,
-    weight: "250 g",
-    img: PHOTO_PATHS.potmbeurbeuf,
-    label: PHOTO_PATHS.mbeurbeufLabel,
-    ingredient: PHOTO_PATHS.ingmbeurbeuf,
-    badge: "Au Mbeurbeuf",
-    emoji: "🌼",
-    stock: 20,
-    active: true
-  }
+const defaults = [
+  {id:'carotte',name:'Savon Carotte',short:'Doux, purifiant & revitalisant',price:1500,weight:'250 g',img:'assets/carotte-pot-clean.jpg',label:'assets/carotte-label.jpg',ingredient:'assets/carotte-ingredient.jpg',badge:'À la carotte',stock:10},
+  {id:'nebeday',name:'Savon Nébéday',short:'Frais, nourrissant & apaisant',price:1500,weight:'250 g',img:'assets/nebeday-pot-clean.jpg',label:'assets/nebeday-label.jpg',ingredient:'assets/moringa.jpg',badge:'Au moringa',stock:10},
+  {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'assets/mbeurbeuf-pot-clean.jpg',label:'assets/mbeurbeuf-label.jpg',ingredient:'assets/mbeurbeuf-plant.jpg',badge:'Au Mbeurbeuf',stock:10}
 ];
 
-/* =========================
-   4. DONNÉES LOCALES
-   ========================= */
-
-function loadData(key, fallback) {
-  try {
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-let products = loadData("piwanProducts", defaultProducts);
-let reviews = loadData("piwanReviews", []);
+let products = JSON.parse(localStorage.getItem('piwanProducts') || 'null') || defaults;
+let orders = JSON.parse(localStorage.getItem('piwanOrders') || '[]');
 let cart = {};
-let packPrice = Number(
-  localStorage.getItem("piwanPackPrice") || PACK_PRICE_DEFAULT
-);
+let isAdminLoggedIn = sessionStorage.getItem('piwanAdminAuth') === 'true';
 
-/* =========================
-   5. OUTILS
-   ========================= */
-
-function money(value) {
-  return Number(value || 0).toLocaleString("fr-FR") + " FCFA";
+function money(n) {
+  return Number(n).toLocaleString('fr-FR') + ' FCFA';
 }
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  }[character]));
-}
-
-function saveProducts() {
-  localStorage.setItem("piwanProducts", JSON.stringify(products));
-}
-
-function toast(message) {
-  const element = document.getElementById("toast");
-  element.textContent = message;
-  element.classList.add("show");
-
-  clearTimeout(window.piwanToastTimer);
-
-  window.piwanToastTimer = setTimeout(() => {
-    element.classList.remove("show");
-  }, 2800);
-}
-
-/* =========================
-   6. PHOTOS DE PRÉSENTATION
-   ========================= */
-
-function applyPhotos() {
-  document.getElementById("heroPhoto").src = PHOTO_PATHS.accueil;
-  document.getElementById("storyPhoto").src = PHOTO_PATHS.philosophie;
-  document.getElementById("packPhoto").src = PHOTO_PATHS.pack;
-}
-
-/* =========================
-   7. STOCK ET PRODUITS
-   ========================= */
-
+// --- AFFICHAGE DES PRODUITS ---
 function renderProducts() {
-  const container = document.getElementById("products");
-
-  const visibleProducts = products.filter(p => p.active !== false);
-
-  container.innerHTML = visibleProducts.map(product => {
-    const stock = Number(product.stock || 0);
-    const outOfStock = stock <= 0;
-
-    return `
-      <article class="card">
-        <div class="productvisual ${outOfStock ? "out" : ""}">
-          <img class="pot"
-               src="${escapeHTML(product.img)}"
-               alt="${escapeHTML(product.name)}"
-               onerror="this.src='assets/placeholder.jpg'">
-
-          ${product.label ? `
-            <img class="productlabel"
-                 src="${escapeHTML(product.label)}"
-                 alt="Étiquette ${escapeHTML(product.name)}"
-                 onerror="this.style.display='none'">
-          ` : ""}
-
-          ${product.ingredient ? `
-            <img class="ingredient"
-                 src="${escapeHTML(product.ingredient)}"
-                 alt="Ingrédient ${escapeHTML(product.name)}"
-                 onerror="this.style.display='none'">
-          ` : ""}
-        </div>
-
-        <div class="cardbody">
-          <span class="tag">${escapeHTML(product.badge || "Savon artisanal")}</span>
-
-          <h3>${escapeHTML(product.name)}</h3>
-
-          <p class="desc">${escapeHTML(product.short || "")}</p>
-
-          <div class="price">${money(product.price)}</div>
-
-          <span class="weight">
-            ${escapeHTML(product.weight || "250 g")} · Préparé à la main
-          </span>
-
-          <div class="stocklabel ${outOfStock ? "stockout" : ""}">
-            ${outOfStock ? "Rupture de stock" :
-              stock <= LOW_STOCK_LIMIT ? `Plus que ${stock} en stock` :
-              "Disponible"}
-          </div>
-
-          <button class="add"
-                  ${outOfStock ? "disabled" : ""}
-                  onclick="add('${product.id}')">
-            ${outOfStock ? "Indisponible" : "Ajouter au panier +"}
-          </button>
-        </div>
-      </article>
-    `;
-  }).join("");
+  document.getElementById('products').innerHTML = products.map(p => `
+    <article class="card">
+      <div class="productvisual">
+        <img class="pot" src="${p.img}" alt="${p.name}, pot de savon">
+        <img class="productlabel" src="${p.label||''}" alt="Étiquette ${p.name}" onerror="this.style.display='none'">
+        <img class="ingredient" src="${p.ingredient}" alt="Ingrédient associé" onerror="this.style.display='none'">
+      </div>
+      <div class="cardbody">
+        <span class="tag">${p.badge || 'Savon artisanal'}</span>
+        <h3>${p.name}</h3>
+        <p class="desc">${p.short}</p>
+        <div class="price">${money(p.price)}</div>
+        <span class="weight">${p.weight || '250 g'} · Préparé à la main</span>
+        <button class="add" onclick="add('${p.id}')">Ajouter au panier +</button>
+      </div>
+    </article>
+  `).join('');
 }
 
-/* =========================
-   8. PACK DE 3 SAVONS
-   ========================= */
-
-function packStock() {
-  const activeProducts = products.filter(p =>
-    ["carotte", "nebeday", "mbeurbeuf"].includes(p.id)
-  );
-
-  if (activeProducts.length < 3) return 0;
-
-  return Math.min(...activeProducts.map(p => Number(p.stock || 0)));
-}
-
-function addPack() {
-  if (packStock() <= 0) {
-    toast("Le pack est momentanément indisponible.");
-    return;
-  }
-
-  cart[PACK_ID] = (cart[PACK_ID] || 0) + 1;
-  renderCart();
-  toast("Pack découverte ajouté 🌿");
-}
-
-/* =========================
-   9. PANIER
-   ========================= */
-
+// --- GESTION DU PANIER ---
 function add(id) {
-  const product = products.find(p => p.id === id);
-
-  if (!product || product.stock <= 0) {
-    toast("Ce produit est indisponible.");
-    return;
-  }
-
-  const quantity = cart[id] || 0;
-
-  if (quantity >= product.stock) {
-    toast("Stock disponible insuffisant.");
-    return;
-  }
-
-  cart[id] = quantity + 1;
+  cart[id] = (cart[id] || 0) + 1;
   renderCart();
-  toast("Ajouté au panier 🌿");
+  toast('Ajouté au panier 🌿');
 }
 
-function adjust(id, amount) {
-  const current = cart[id] || 0;
-  const next = current + amount;
-
-  if (id === PACK_ID) {
-    if (next > packStock()) {
-      toast("Stock disponible insuffisant pour ce pack.");
-      return;
-    }
-  } else {
-    const product = products.find(p => p.id === id);
-
-    if (product && next > product.stock) {
-      toast("Stock disponible insuffisant.");
-      return;
-    }
-  }
-
-  if (next <= 0) {
-    delete cart[id];
-  } else {
-    cart[id] = next;
-  }
-
+function adjust(id, n) {
+  cart[id] = (cart[id] || 0) + n;
+  if (cart[id] <= 0) delete cart[id];
   renderCart();
 }
 
-function cartCount() {
-  return Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
-}
-
-function cartTotal() {
-  let sum = 0;
-
-  products.forEach(product => {
-    sum += product.price * (cart[product.id] || 0);
-  });
-
-  sum += packPrice * (cart[PACK_ID] || 0);
-
-  return sum;
-}
-
-function cartLines() {
-  const lines = [];
-
-  products.forEach(product => {
-    const quantity = cart[product.id] || 0;
-
-    if (quantity > 0) {
-      lines.push({
-        id: product.id,
-        name: product.name,
-        quantity,
-        price: product.price,
-        stock: product.stock
-      });
-    }
-  });
-
-  const packQuantity = cart[PACK_ID] || 0;
-
-  if (packQuantity > 0) {
-    lines.push({
-      id: PACK_ID,
-      name: "Pack découverte (Carotte + Nébéday + Mbeurbeuf)",
-      quantity: packQuantity,
-      price: packPrice,
-      stock: packStock()
-    });
-  }
-
-  return lines;
+function total() {
+  return products.reduce((s, p) => s + (p.price * (cart[p.id] || 0)), 0);
 }
 
 function renderCart() {
-  const count = cartCount();
-  const total = cartTotal();
-
-  document.getElementById("cartcount").textContent = count;
-  document.getElementById("carttotal").textContent = total.toLocaleString("fr-FR");
-  document.getElementById("totalprice").textContent = money(total);
-
-  const container = document.getElementById("cartitems");
-  const lines = cartLines();
-
-  if (!lines.length) {
-    container.innerHTML = `
-      <p class="emptycart">
-        Votre panier est vide. Choisissez un savon pour commencer.
-      </p>
-    `;
-    return;
-  }
-
-  container.innerHTML = lines.map(line => `
+  let count = Object.values(cart).reduce((a, b) => a + b, 0);
+  document.getElementById('cartcount').textContent = count;
+  document.getElementById('carttotal').textContent = total().toLocaleString('fr-FR');
+  document.getElementById('totalprice').textContent = money(total());
+  document.getElementById('cartitems').innerHTML = count ? products.filter(p => cart[p.id]).map(p => `
     <div class="cartrow">
-      <div>
-        <b>${escapeHTML(line.name)}</b>
-        <small>${money(line.price)} · ${line.quantity} article(s)</small>
-      </div>
-
+      <div><b>${p.name}</b><small>${money(p.price)} · ${p.weight}</small></div>
       <div class="qty">
-        <button onclick="adjust('${line.id}',-1)">−</button>
-        <b>${line.quantity}</b>
-        <button onclick="adjust('${line.id}',1)">+</button>
+        <button onclick="adjust('${p.id}',-1)">−</button>
+        <b>${cart[p.id]}</b>
+        <button onclick="adjust('${p.id}',1)">+</button>
       </div>
     </div>
-  `).join("");
+  `).join('') : '<p style="color:#777">Votre panier est vide. Choisissez un savon pour commencer.</p>';
 }
 
-/* =========================
-   10. PANELS
-   ========================= */
-
 function openCart() {
-  document.getElementById("cart").classList.add("open");
-  document.getElementById("overlay").classList.add("show");
+  closePanels();
+  document.getElementById('cart').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
 }
 
 function closePanels() {
-  document.getElementById("cart").classList.remove("open");
-  document.getElementById("admin").classList.remove("show");
-  document.getElementById("overlay").classList.remove("show");
+  document.getElementById('cart').classList.remove('open');
+  document.getElementById('admin').classList.remove('show');
+  document.getElementById('loginModal').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// --- ENREGISTREMENT DE LA COMMANDE (SANS SORTIR VERS WHATSAPP) ---
+function submitOrder() {
+  if (!total()) {
+    toast('Votre panier est vide');
+    return;
+  }
+  
+  const name = document.getElementById('customername').value;
+  const phone = document.getElementById('customerphone').value;
+  const email = document.getElementById('customeremail').value;
+  const city = document.getElementById('customerlocation').value;
+  
+  const itemsList = products.filter(p => cart[p.id]).map(p => ({
+    name: p.name,
+    qty: cart[p.id],
+    subtotal: p.price * cart[p.id]
+  }));
+
+  const newOrder = {
+    id: 'CMD-' + Math.floor(1000 + Math.random() * 9000),
+    date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute:'2-digit' }),
+    customer: { name, phone, email, city },
+    items: itemsList,
+    total: total()
+  };
+
+  // Sauvegarde de la commande
+  orders.unshift(newOrder);
+  localStorage.setItem('piwanOrders', JSON.stringify(orders));
+
+  // Vider le panier et fermer
+  cart = {};
+  renderCart();
+  document.querySelector('.checkout').reset();
+  closePanels();
+  
+  toast('✅ Commande enregistrée ! Nous vous contacterons très vite.');
+}
+
+function waveInfo() {
+  toast('Numéro Wave : 77 666 11 87 (Piwan Production)');
+}
+
+function toast(t) {
+  let el = document.getElementById('toast');
+  el.textContent = t;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// --- CONNEXION & ESPACE ADMIN ---
+function openLogin() {
+  closePanels();
+  if (isAdminLoggedIn) {
+    openAdmin();
+  } else {
+    document.getElementById('loginModal').classList.add('show');
+    document.getElementById('overlay').classList.add('show');
+  }
+}
+
+function handleLogin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass = document.getElementById('adminPass').value.trim();
+
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    isAdminLoggedIn = true;
+    sessionStorage.setItem('piwanAdminAuth', 'true');
+    document.getElementById('adminEmail').value = '';
+    document.getElementById('adminPass').value = '';
+    openAdmin();
+    toast('Connexion réussie 🌿');
+  } else {
+    toast('❌ E-mail ou mot de passe incorrect');
+  }
+}
+
+function logoutAdmin() {
+  isAdminLoggedIn = false;
+  sessionStorage.removeItem('piwanAdminAuth');
+  closePanels();
+  toast('Déconnecté de l\'espace gestion');
 }
 
 function openAdmin() {
-  document.getElementById("admin").classList.add("show");
-  document.getElementById("overlay").classList.add("show");
-
+  closePanels();
+  document.getElementById('admin').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+  renderOrders();
   renderAdmin();
 }
 
-/* =========================
-   11. COMMANDES WHATSAPP
-   ========================= */
-
-document.getElementById("checkoutForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-  sendOrder();
-});
-
-function sendOrder() {
-  if (!cartCount()) {
-    toast("Votre panier est vide.");
-    return;
-  }
-
-  const name = document.getElementById("customername").value.trim();
-  const phone = document.getElementById("customerphone").value.trim();
-  const email = document.getElementById("customeremail").value.trim();
-  const city = document.getElementById("customerlocation").value.trim();
-
-  if (!name || !phone) {
-    toast("Merci de renseigner votre nom et votre téléphone.");
-    return;
-  }
-
-  const lines = cartLines();
-
-  const orderDetails = lines.map(line =>
-    `${line.name} x${line.quantity} — ${money(line.price * line.quantity)}`
-  ).join("\n");
-
-  const message =
-`Bonjour Piwan Production 🌿
-
-Je souhaite passer une commande :
-
-${orderDetails}
-
-TOTAL : ${money(cartTotal())}
-
-Nom : ${name}
-Téléphone : ${phone}${email ? "\nE-mail : " + email : ""}${city ? "\nVille : " + city : ""}
-
-Merci de me préciser les modalités de récupération de ma commande.`;
-
-  const url = "https://wa.me/" + WHATSAPP_NUMBER +
-    "?text=" + encodeURIComponent(message);
-
-  window.open(url, "_blank");
-
-  /* Enregistre une demande locale de commande, sans prétendre
-     qu'elle est confirmée ou payée. */
-  const orderHistory = loadData("piwanOrderHistory", []);
-
-  orderHistory.push({
-    date: new Date().toISOString(),
-    customer: name,
-    phone,
-    items: lines,
-    total: cartTotal(),
-    status: "WhatsApp à confirmer"
-  });
-
-  localStorage.setItem("piwanOrderHistory", JSON.stringify(orderHistory));
+function switchTab(tabId, btnElement) {
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  
+  document.getElementById(tabId).style.display = 'block';
+  btnElement.classList.add('active');
 }
 
-/* =========================
-   12. AVIS CLIENTS
-   ========================= */
+function renderOrders() {
+  document.getElementById('orderCountBadge').textContent = orders.length;
+  const container = document.getElementById('ordersList');
+  
+  if (orders.length === 0) {
+    container.innerHTML = '<p style="color:#777;font-size:14px;">Aucune commande enregistrée pour le moment.</p>';
+    return;
+  }
 
-function renderReviews() {
-  const container = document.getElementById("reviewsList");
+  container.innerHTML = orders.map((o, index) => {
+    const itemsText = o.items.map(i => `${i.qty}x ${i.name} (${money(i.subtotal)})`).join('<br>');
+    const waMessage = `Bonjour ${o.customer.name}, c'est Piwan Production concernant votre commande ${o.id} d'un montant de ${money(o.total)}.`;
+    const cleanPhone = o.customer.phone.replace(/\s+/g, '');
 
-  if (!reviews.length) {
-    container.innerHTML = `
-      <p class="no-reviews">
-        Aucun avis pour le moment. Soyez le premier à partager votre expérience.
-      </p>
+    return `
+      <div class="order-card">
+        <div class="order-header">
+          <span>${o.id} — ${o.customer.name}</span>
+          <span>${money(o.total)}</span>
+        </div>
+        <div style="font-size:12px;color:#666;">📅 ${o.date} · 📞 <b>${o.customer.phone}</b> · 📍 ${o.customer.city}</div>
+        <div class="order-items">${itemsText}</div>
+        <div class="order-actions">
+          <a href="https://wa.me/221${cleanPhone}?text=${encodeURIComponent(waMessage)}" target="_blank" class="btn-wa-small">Contacter sur WhatsApp ↗</a>
+          <button onclick="deleteOrder(${index})" class="btn-del-small">Marquer comme traitée / Supprimer</button>
+        </div>
+      </div>
     `;
-    return;
-  }
-
-  container.innerHTML = reviews.slice().reverse().map(review => `
-    <article class="reviewcard">
-      <div class="stars">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
-      <p>${escapeHTML(review.text)}</p>
-      <small>${escapeHTML(review.name)}</small>
-    </article>
-  `).join("");
+  }).join('');
 }
 
-document.getElementById("reviewForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const name = document.getElementById("reviewName").value.trim();
-  const rating = Number(document.getElementById("reviewRating").value);
-  const text = document.getElementById("reviewText").value.trim();
-
-  if (!name || !text) return;
-
-  reviews.push({
-    name,
-    rating,
-    text,
-    date: new Date().toISOString()
-  });
-
-  localStorage.setItem("piwanReviews", JSON.stringify(reviews));
-
-  this.reset();
-  renderReviews();
-
-  toast("Merci pour votre avis ❤️");
-});
-
-/* =========================
-   13. ADMIN : STOCK ET PRIX
-   ========================= */
+function deleteOrder(index) {
+  if (confirm('Voulez-vous supprimer cette commande de la liste ?')) {
+    orders.splice(index, 1);
+    localStorage.setItem('piwanOrders', JSON.stringify(orders));
+    renderOrders();
+    toast('Commande supprimée');
+  }
+}
 
 function renderAdmin() {
-  const container = document.getElementById("adminrows");
-
-  container.innerHTML = products.map(product => `
+  document.getElementById('adminrows').innerHTML = products.map(p => `
     <div class="adminrow">
-      <div class="adminproductname">
-        <b>${escapeHTML(product.name)}</b>
-        <small>Stock actuel : ${product.stock || 0}</small>
-      </div>
-
-      <label>Prix
-        <input type="number" min="0"
-          id="price-${product.id}" value="${product.price}">
-      </label>
-
-      <label>Stock
-        <input type="number" min="0"
-          id="stock-${product.id}" value="${product.stock || 0}">
-      </label>
-
-      <label>Coût de fabrication
-        <input type="number" min="0"
-          id="cost-${product.id}" value="${product.cost || 0}">
-      </label>
-
-      <label class="adminphoto">Photo du pot
-        <input id="img-${product.id}" value="${escapeHTML(product.img)}">
-      </label>
-
-      <label class="adminphoto">Photo ingrédient
-        <input id="ingredient-${product.id}" value="${escapeHTML(product.ingredient || "")}">
-      </label>
-
-      <button class="deleteproduct"
-        onclick="deleteProduct('${product.id}')">Supprimer</button>
+      <div><b>${p.name}</b><small style="display:block;color:#777;margin-top:4px">Prix actuel : ${money(p.price)}</small></div>
+      <label style="font-size:12px;">Prix (FCFA)<input type="number" min="0" id="price-${p.id}" value="${p.price}"></label>
+      <label style="font-size:12px;">Stock<input type="number" min="0" id="stock-${p.id}" value="${p.stock ?? 0}"></label>
+      <button class="deleteproduct" onclick="deleteProduct('${p.id}')">Supprimer</button>
     </div>
-  `).join("");
-
-  document.getElementById("packprice").value = packPrice;
-
-  renderStats();
+  `).join('');
 }
 
 function saveAdmin() {
-  products = products.map(product => ({
-    ...product,
-    price: Number(document.getElementById("price-" + product.id).value),
-    stock: Math.max(0, Number(document.getElementById("stock-" + product.id).value)),
-    cost: Math.max(0, Number(document.getElementById("cost-" + product.id).value)),
-    img: document.getElementById("img-" + product.id).value.trim(),
-    ingredient: document.getElementById("ingredient-" + product.id).value.trim()
+  products = products.map(p => ({
+    ...p,
+    price: Number(document.getElementById('price-' + p.id).value),
+    stock: Number(document.getElementById('stock-' + p.id).value)
   }));
-
-  saveProducts();
+  localStorage.setItem('piwanProducts', JSON.stringify(products));
   renderProducts();
-  renderAdmin();
-
-  toast("Modifications enregistrées sur ce navigateur.");
-}
-
-function savePackPrice() {
-  packPrice = Math.max(0, Number(document.getElementById("packprice").value));
-
-  localStorage.setItem("piwanPackPrice", String(packPrice));
-
-  renderCart();
-
-  toast("Prix du pack enregistré.");
+  toast('Modifications enregistrées !');
 }
 
 function deleteProduct(id) {
-  if (!confirm("Supprimer ce produit ?")) return;
-
-  products = products.filter(product => product.id !== id);
-  delete cart[id];
-
-  saveProducts();
-  renderProducts();
-  renderCart();
-  renderAdmin();
-
-  toast("Produit supprimé.");
+  if (confirm('Supprimer ce produit de la boutique ?')) {
+    products = products.filter(p => p.id !== id);
+    localStorage.setItem('piwanProducts', JSON.stringify(products));
+    renderAdmin();
+    renderProducts();
+    toast('Produit supprimé');
+  }
 }
 
-/* =========================
-   14. AJOUT DE PRODUITS
-   ========================= */
+async function fileData(input) {
+  if (!input.files || !input.files[0]) return '';
+  return new Promise(resolve => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.readAsDataURL(input.files[0]);
+  });
+}
 
-document.getElementById("addproductform").addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const id = "custom-" + Date.now();
-
-  const product = {
+document.getElementById('addproductform').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = 'custom-' + Date.now();
+  const img = await fileData(document.getElementById('newphoto'));
+  const ingredient = await fileData(document.getElementById('newingredient'));
+  
+  products.push({
     id,
-    name: document.getElementById("newname").value.trim(),
-    price: Number(document.getElementById("newprice").value),
-    stock: Math.max(0, Number(document.getElementById("newstock").value)),
-    cost: 0,
-    weight: document.getElementById("newweight").value.trim() || "250 g",
-    badge: document.getElementById("newbadge").value.trim() || "Savon artisanal",
-    short: document.getElementById("newdesc").value.trim(),
-    img: document.getElementById("newimg").value.trim(),
-    ingredient: document.getElementById("newingredient").value.trim(),
-    label: "",
-    active: true
-  };
-
-  products.push(product);
-
-  saveProducts();
-  renderProducts();
+    name: document.getElementById('newname').value,
+    short: document.getElementById('newdesc').value,
+    price: Number(document.getElementById('newprice').value),
+    weight: document.getElementById('newweight').value || '250 g',
+    img: img || 'assets/carotte-pot-clean.jpg',
+    label: '',
+    ingredient: ingredient || 'assets/moringa.jpg',
+    badge: document.getElementById('newbadge').value || 'Savon artisanal',
+    stock: 10
+  });
+  
+  localStorage.setItem('piwanProducts', JSON.stringify(products));
   renderAdmin();
-
-  this.reset();
-
-  toast("Produit ajouté.");
+  renderProducts();
+  e.target.reset();
+  toast('Nouveau produit ajouté !');
 });
 
-/* =========================
-   15. STATISTIQUES LOCALES
-   ========================= */
-
-function renderStats() {
-  const container = document.getElementById("stats");
-  const history = loadData("piwanOrderHistory", []);
-
-  const totalOrders = history.length;
-  const totalRequested = history.reduce((sum, order) => sum + Number(order.total || 0), 0);
-
-  const lowStockProducts = products.filter(p => Number(p.stock || 0) <= LOW_STOCK_LIMIT);
-
-  container.innerHTML = `
-    <div class="statsgrid">
-      <div class="statbox">
-        <small>Demandes de commande enregistrées</small>
-        <strong>${totalOrders}</strong>
-      </div>
-
-      <div class="statbox">
-        <small>Total des commandes initiées sur ce navigateur</small>
-        <strong>${money(totalRequested)}</strong>
-      </div>
-    </div>
-
-    <h4>Alertes de stock</h4>
-
-    ${lowStockProducts.length ? lowStockProducts.map(p => `
-      <div class="stockalert">
-        ${escapeHTML(p.name)} : ${p.stock <= 0 ? "Rupture" : p.stock + " pot(s) restant(s)"}
-      </div>
-    `).join("") : `
-      <p>Pas d'alerte de stock.</p>
-    `}
-
-    <p class="statsnote">
-      Ces statistiques sont locales. Les commandes WhatsApp ne sont pas automatiquement
-      confirmées, payées ou synchronisées. Elles ne constituent donc pas un chiffre
-      d'affaires réel.
-    </p>
-  `;
-}
-
-/* =========================
-   16. INITIALISATION
-   ========================= */
-
-applyPhotos();
+// Lancement initial
 renderProducts();
 renderCart();
-renderReviews();
