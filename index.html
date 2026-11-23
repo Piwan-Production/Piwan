@@ -1,303 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Piwan Production — La nature au service de votre peau</title>
-  <meta name="description" content="Découvrez les savons artisanaux Piwan Production, fabriqués à la main au Sénégal.">
+  <meta name="description" content="Savons artisanaux Piwan Production, préparés à la main avec soin.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="top">SAVONS ARTISANAUX · FABRIQUÉS À LA MAIN AU SÉNÉGAL</div>
+  
+  <header class="nav">
+    <a class="brand" href="#home">
+      <span class="brandmark">🌿</span>
+      <span class="brandname">Piwan Production<small>LA NATURE AU SERVICE DE VOTRE PEAU</small></span>
+    </a>
+    <nav class="navlinks">
+      <a href="#shop">La boutique</a>
+      <a href="#story">Notre savoir-faire</a>
+      <a href="#how">Commander</a>
+    </nav>
+    <button class="cartbtn" onclick="openCart()">Panier <span id="cartcount">0</span> · <span id="carttotal">0</span> FCFA</button>
+  </header>
 
-<div class="top">SAVONS ARTISANAUX · FABRIQUÉS À LA MAIN AU SÉNÉGAL</div>
-
-<header class="nav">
-  <a class="brand" href="#home">
-    <span class="brandmark">🌿</span>
-    <span class="brandname">
-      Piwan Production
-      <small>LA NATURE AU SERVICE DE VOTRE PEAU</small>
-    </span>
-  </a>
-
-  <nav class="navlinks">
-    <a href="#shop">La boutique</a>
-    <a href="#pack">Nos packs</a>
-    <a href="#story">Notre histoire</a>
-    <a href="#reviews">Avis</a>
-  </nav>
-
-  <button class="cartbtn" onclick="openCart()">
-    Panier <span id="cartcount">0</span> ·
-    <span id="carttotal">0</span> FCFA
-  </button>
-</header>
-
-<main id="home">
-
-  <section class="hero">
-    <div class="hero-text">
-      <span class="eyebrow">Le soin du fait main</span>
-
-      <h1>La nature.<br><em>Tout simplement.</em></h1>
-
-      <p>
-        Des savons artisanaux inspirés de la nature sénégalaise,
-        préparés avec soin et passion pour accompagner
-        vos gestes du quotidien.
-      </p>
-
-      <a class="cta" href="#shop">Découvrir nos savons ↗</a>
-
-      <div class="hero-note">
-        <span>✳</span> Fabrication artisanale · Sénégal
+  <main id="home">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Le soin du fait main</span>
+        <h1>La nature.<br><em>Tout simplement.</em></h1>
+        <p>Des savons artisanaux inspirés de la nature sénégalaise, préparés avec soin et passion pour accompagner vos gestes du quotidien.</p>
+        <a class="cta" href="#shop">Découvrir nos savons&nbsp; ↗</a>
       </div>
-    </div>
-
-    <div class="heroimg">
-      <img id="heroPhoto" src="assets/moringa.jpg"
-           alt="Ingrédients naturels Piwan Production">
-      <div class="heroquote">Des gestes simples, une attention sincère.</div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div><b>✳</b> FABRIQUÉ À LA MAIN</div>
-    <div><b>♧</b> INSPIRÉ DE LA NATURE</div>
-    <div><b>♡</b> PRÉPARÉ AVEC SOIN</div>
-  </section>
-
-  <section class="section" id="shop">
-    <div class="sectionhead">
-      <span class="eyebrow">Notre collection</span>
-      <h2>Des soins, naturellement.</h2>
-      <p>
-        Découvrez nos savons artisanaux. Chaque pot est préparé
-        avec soin dans le respect de notre savoir-faire.
-      </p>
-    </div>
-
-    <div class="products" id="products"></div>
-  </section>
-
-  <section class="pack-section" id="pack">
-    <div class="pack-content">
-      <span class="eyebrow">L'expérience Piwan</span>
-      <h2>Les trois essentiels.<br><em>Un seul coffret.</em></h2>
-
-      <p>
-        Carotte, Nébéday et Mbeurbeuf réunis pour découvrir
-        l'univers Piwan Production.
-      </p>
-
-      <div class="pack-price">
-        <span class="old-price">4 500 FCFA</span>
-        <strong>4 000 FCFA</strong>
-        <span class="saving">Économisez 500 FCFA</span>
+      <div class="heroimg">
+        <img src="assets/moringa.jpg" alt="Feuilles de moringa et poudre naturelle">
+        <div class="heroquote">Des gestes simples, une attention sincère.</div>
       </div>
+    </section>
 
-      <button class="cta" onclick="addPack()">
-        Découvrir le pack +
-      </button>
+    <div class="features">
+      <div><b>✳</b> FABRIQUÉ À LA MAIN</div>
+      <div><b>♧</b> INSPIRÉ DE LA NATURE</div>
+      <div><b>♡</b> PRÉPARÉ AVEC SOIN</div>
     </div>
 
-    <div class="packvisual">
-      <img id="packPhoto" src="assets/hero-trio.webp"
-           alt="Pack découverte des trois savons">
-    </div>
-  </section>
+    <section class="section" id="shop">
+      <div class="sectionhead">
+        <span class="eyebrow">Notre collection</span>
+        <h2>Des soins, naturellement.</h2>
+        <p>Découvrez nos savons artisanaux. Chaque pot est préparé avec soin, dans le respect de notre savoir-faire.</p>
+      </div>
+      <div class="products" id="products"></div>
+    </section>
 
-  <section class="section story" id="story">
+    <section class="section story" id="story">
+      <div>
+        <span class="eyebrow" style="color:#c8d9b6">Notre philosophie</span>
+        <h2>Le soin du fait main,<br>pour une peau heureuse.</h2>
+        <p>Chez Piwan Production, nous croyons à la simplicité, à la nature et au soin apporté à chaque préparation. Nos savons sont fabriqués artisanalement et inspirés d'ingrédients que nous aimons.</p>
+        <p>Une petite attention, préparée avec passion.</p>
+      </div>
+      <div class="storyvisual">
+        <img src="assets/mbeurbeuf-plant.jpg" alt="Plante Mbeurbeuf aux fleurs jaunes">
+      </div>
+    </section>
+
+    <section class="section how" id="how">
+      <div class="sectionhead">
+        <span class="eyebrow">En quelques étapes</span>
+        <h2>Votre commande, tout simplement.</h2>
+        <p>Choisissez vos savons, validez votre panier et nous vous recontactons pour la livraison.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><strong>01</strong><h3>Choisissez</h3><p>Parcourez la collection et ajoutez vos savons préférés au panier.</p></div>
+        <div class="step"><strong>02</strong><h3>Validez</h3><p>Remplissez vos coordonnées directement sur le site pour enregistrer votre commande.</p></div>
+        <div class="step"><strong>03</strong><h3>Récupérez</h3><p>Notre équipe vous contacte rapidement pour organiser la remise ou la livraison.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
     <div>
-      <span class="eyebrow light">Notre philosophie</span>
-      <h2>Le soin du fait main,<br>pour une peau heureuse.</h2>
-
-      <p>
-        Chez Piwan Production, nous croyons à la simplicité,
-        à la nature et au soin apporté à chaque préparation.
-        Nos savons sont fabriqués artisanalement et inspirés
-        d'ingrédients que nous aimons.
-      </p>
-
-      <p>
-        Une petite attention, préparée avec passion.
-      </p>
+      <div class="brandname" style="color:#f5f0df">Piwan Production<small>LA NATURE AU SERVICE DE VOTRE PEAU</small></div>
+      <p>Des savons artisanaux, faits à la main<br>avec soin et passion.</p>
+      <div class="creator-credit">Site réalisé par <strong>SARR Fatou</strong> · <a href="mailto:sarrfatousn221@gmail.com">sarrfatousn221@gmail.com</a></div>
     </div>
-
-    <div class="storyvisual">
-      <img id="storyPhoto" src="assets/ing-mbeurbeuf.webp"
-           alt="Plante Mbeurbeuf">
+    <div class="footerlinks">
+      <a href="#shop">La boutique</a>
+      <a href="#how">Commander</a>
+      <a href="https://wa.me/221776661187" target="_blank">Contact WhatsApp ↗</a>
+      <button class="adminlink" onclick="openLogin()">Espace Gestion</button>
     </div>
-  </section>
+  </footer>
 
-  <section class="section reviews-section" id="reviews">
-    <div class="sectionhead">
-      <span class="eyebrow">Vos impressions</span>
-      <h2>Vos mots comptent.</h2>
-      <p>Partagez votre expérience avec Piwan Production.</p>
+  <!-- PANIER CLIENT -->
+  <div class="overlay" id="overlay" onclick="closePanels()"></div>
+  <aside class="cartdrawer" id="cart">
+    <div class="carthead">
+      <h2>Votre panier</h2>
+      <button class="close" onclick="closePanels()">×</button>
     </div>
-
-    <div id="reviewsList" class="reviews-list"></div>
-
-    <div class="review-form-box">
-      <h3>Déposer un avis</h3>
-
-      <form id="reviewForm">
-        <input id="reviewName" placeholder="Votre prénom" required>
-
-        <label for="reviewRating">Votre note</label>
-        <select id="reviewRating" required>
-          <option value="5">★★★★★ — Excellent</option>
-          <option value="4">★★★★☆ — Très bien</option>
-          <option value="3">★★★☆☆ — Bien</option>
-          <option value="2">★★☆☆☆ — Moyen</option>
-          <option value="1">★☆☆☆☆ — Décevant</option>
-        </select>
-
-        <textarea id="reviewText" maxlength="500"
-          placeholder="Votre expérience..." required></textarea>
-
-        <button class="cta" type="submit">Envoyer mon avis</button>
-      </form>
-
-      <p class="review-note">
-        Les avis sont enregistrés sur ce navigateur dans cette version.
-      </p>
-    </div>
-  </section>
-
-  <section class="section how" id="how">
-    <div class="sectionhead">
-      <span class="eyebrow">En quelques étapes</span>
-      <h2>Votre commande, tout simplement.</h2>
-      <p>Choisissez vos savons et contactez-nous pour organiser la récupération.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <strong>01</strong>
-        <h3>Choisissez</h3>
-        <p>Parcourez la collection et ajoutez vos savons préférés au panier.</p>
-      </div>
-
-      <div class="step">
-        <strong>02</strong>
-        <h3>Commandez</h3>
-        <p>Vérifiez votre panier et envoyez votre commande directement sur WhatsApp.</p>
-      </div>
-
-      <div class="step">
-        <strong>03</strong>
-        <h3>Récupérez</h3>
-        <p>Contactez Piwan Production pour connaître les modalités de récupération.</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <div>
-    <div class="brandname footer-brand">
-      Piwan Production
-      <small>LA NATURE AU SERVICE DE VOTRE PEAU</small>
-    </div>
-
-    <p>Des savons artisanaux, faits à la main<br>avec soin et passion.</p>
-
-    <div class="creator-credit">
-      Site réalisé par <strong>SARR Fatou</strong> ·
-      <a href="mailto:sarrfatousn221@gmail.com">sarrfatousn221@gmail.com</a>
-    </div>
-  </div>
-
-  <div class="footerlinks">
-    <a href="#shop">La boutique</a>
-    <a href="#pack">Nos packs</a>
-    <a href="#how">Commander</a>
-    <a href="https://wa.me/221776661187" target="_blank">WhatsApp ↗</a>
-    <button class="adminlink" onclick="openAdmin()">Gestion boutique</button>
-  </div>
-</footer>
-
-<div class="overlay" id="overlay" onclick="closePanels()"></div>
-
-<aside class="cartdrawer" id="cart">
-  <div class="carthead">
-    <h2>Votre panier</h2>
-    <button class="close" onclick="closePanels()">×</button>
-  </div>
-
-  <div class="cartitems" id="cartitems"></div>
-
-  <div class="total">
-    <span>Total</span>
-    <span id="totalprice">0 FCFA</span>
-  </div>
-
-  <form class="checkout" id="checkoutForm">
-    <input id="customername" placeholder="Votre nom" required>
-    <input id="customerphone" type="tel" placeholder="Votre numéro de téléphone" required>
-    <input id="customeremail" type="email" placeholder="E-mail (facultatif)">
-    <input id="customerlocation" placeholder="Votre ville (facultatif)">
-
-    <button class="whatsapp" type="submit">
-      Commander sur WhatsApp
-    </button>
-  </form>
-
-  <p class="cartnote">
-    La commande sera transmise par WhatsApp.
-    Contactez-nous pour les modalités de récupération.
-  </p>
-</aside>
-
-<section class="admin" id="admin">
-  <button class="close adminclose" onclick="closePanels()">×</button>
-
-  <h2>Gestion de la boutique</h2>
-
-  <div class="adminwarning">
-    <strong>Attention :</strong> cette gestion est locale à ce navigateur.
-    Les modifications ne sont pas partagées avec les autres appareils
-    et ne constituent pas une véritable gestion en ligne sécurisée.
-  </div>
-
-  <h3>Produits et stocks</h3>
-  <div id="adminrows"></div>
-
-  <div class="adminadd">
-    <h3>Ajouter un produit</h3>
-
-    <form id="addproductform">
-      <input id="newname" placeholder="Nom du produit" required>
-      <input id="newprice" type="number" min="0" placeholder="Prix en FCFA" required>
-      <input id="newstock" type="number" min="0" placeholder="Stock initial" required>
-      <input id="newweight" placeholder="Poids (ex. 250 g)" value="250 g">
-      <input id="newbadge" placeholder="Petit label">
-      <textarea id="newdesc" placeholder="Description du produit"></textarea>
-      <input id="newimg" placeholder="Nom du fichier photo du pot">
-      <input id="newingredient" placeholder="Nom du fichier photo ingrédient">
-      <button type="submit">Ajouter le produit</button>
+    <div class="cartitems" id="cartitems"></div>
+    <div class="total"><span>Total</span><span id="totalprice">0 FCFA</span></div>
+    <form class="checkout" onsubmit="event.preventDefault();submitOrder()">
+      <input id="customername" placeholder="Votre nom complet" required>
+      <input id="customerphone" placeholder="Votre numéro de téléphone" required>
+      <input id="customeremail" type="email" placeholder="E-mail (facultatif)">
+      <input id="customerlocation" placeholder="Quartier / Ville de livraison" required>
+      <button class="whatsapp" type="submit">Valider ma commande</button>
+      <button class="wave" type="button" onclick="waveInfo()">Voir les infos paiement Wave</button>
     </form>
-  </div>
+    <p style="font-size:11px;color:#777;line-height:1.5">Votre commande sera enregistrée dans notre système et nous vous contacterons par téléphone.</p>
+  </aside>
 
-  <h3>Pack découverte</h3>
-  <div class="packadmin">
-    <label>Prix du pack (FCFA)
-      <input id="packprice" type="number" min="0">
-    </label>
-    <button class="save" onclick="savePackPrice()">Enregistrer le prix du pack</button>
-  </div>
+  <!-- CONNEXION ADMINISTRATEUR -->
+  <section class="login-modal" id="loginModal">
+    <button class="close" style="float:right" onclick="closePanels()">×</button>
+    <h2>Connexion Administration</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Connectez-vous pour gérer vos produits et voir les commandes reçues.</p>
+    <form onsubmit="event.preventDefault();handleLogin()" class="login-form">
+      <input type="email" id="adminEmail" placeholder="Adresse e-mail" required>
+      <input type="password" id="adminPass" placeholder="Mot de passe" required>
+      <button type="submit" class="save" style="width:100%;margin-top:10px;">Se connecter</button>
+    </form>
+  </section>
 
-  <h3>Statistiques de ce navigateur</h3>
-  <div id="stats"></div>
+  <!-- PANNEAU ADMINISTRATEUR COMPLET -->
+  <section class="admin" id="admin">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:15px;margin-bottom:20px;">
+      <h2 style="margin:0;">Espace Gestion Piwan</h2>
+      <div>
+        <button onclick="logoutAdmin()" style="background:#eee;border:0;padding:8px 14px;border-radius:20px;cursor:pointer;margin-right:10px;font-size:12px;">Déconnexion</button>
+        <button class="close" onclick="closePanels()">×</button>
+      </div>
+    </div>
 
-  <button class="save" onclick="saveAdmin()">Enregistrer les modifications</button>
-</section>
+    <!-- ONGLETS DE NAVIGATION ADMIN -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('orders-tab', this)">📦 Commandes reçues (<span id="orderCountBadge">0</span>)</button>
+      <button class="tab-btn" onclick="switchTab('products-tab', this)">🧼 Gérer les produits</button>
+    </div>
 
-<div class="toast" id="toast"></div>
+    <!-- ONGLET 1 : COMMANDES -->
+    <div id="orders-tab" class="tab-content active">
+      <p class="adminnote">Les commandes validées par vos clients sur le site s'affichent ici automatiquement.</p>
+      <div id="ordersList" style="margin-top:15px;"></div>
+    </div>
 
-<script src="script.js"></script>
+    <!-- ONGLET 2 : PRODUITS -->
+    <div id="products-tab" class="tab-content" style="display:none;">
+      <div id="adminrows"></div>
+      <div class="adminadd">
+        <h3>Ajouter un nouveau produit (ex: Pack 3 savons)</h3>
+        <form id="addproductform" class="adminaddgrid">
+          <input id="newname" placeholder="Nom du produit (ex: Pack Découverte 3 Savons)" required>
+          <input id="newprice" type="number" min="0" placeholder="Prix en FCFA (ex: 4000)" required>
+          <input id="newweight" placeholder="Poids (ex: 3 x 250 g)" value="250 g">
+          <input id="newbadge" placeholder="Petit label (ex: Offre Spéciale)">
+          <textarea id="newdesc" placeholder="Description du produit"></textarea>
+          <label style="font-size:12px">Photo principale <input id="newphoto" type="file" accept="image/*"></label>
+          <label style="font-size:12px">Photo ingrédient <input id="newingredient" type="file" accept="image/*"></label>
+          <button type="submit">Ajouter à la boutique</button>
+        </form>
+      </div>
+      <button class="save" onclick="saveAdmin()">Enregistrer les modifications de prix/stock</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
 </body>
 </html>
