@@ -1,1280 +1,172 @@
-
-/* ==========================================================
-   PIWAN PRODUCTION — STYLE COMPLET
-   ========================================================== */
-
-:root {
-  --forest: #173f2a;
-  --forest-dark: #10291c;
-  --green: #28633e;
-  --leaf: #789367;
-  --sage: #dce5d1;
-  --cream: #f7f3e8;
-  --sand: #e9dfca;
-  --white: #fffefa;
-  --ink: #28382b;
-  --muted: #6e766c;
-  --orange: #c46c38;
-  --terracotta: #a95d3b;
-  --line: #e5ddce;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--cream);
-  color: var(--ink);
-  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-}
-
-img {
-  max-width: 100%;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  transition: .2s ease;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: .45;
-}
-
-/* BANDEAU */
-
-.top {
-  background: var(--forest-dark);
-  color: #f9f6e8;
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: .14em;
-  padding: 11px;
-}
-
-/* NAVIGATION */
-
-.nav {
-  min-height: 82px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 12px 6vw;
-  background: #faf7ee;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--forest;
-}
-
-.brandmark {
-  width: 43px;
-  height: 43px;
-  border: 1px solid var(--leaf);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-}
-
-.brandname {
-  font-family: Georgia, serif;
-  font-size: 24px;
-  line-height: 1.1;
-}
-
-.brandname small {
-  display: block;
-  font: 9px system-ui;
-  letter-spacing: .16em;
-  margin-top: 5px;
-}
-
-.navlinks {
-  display: flex;
-  gap: 27px;
-  font-size: 13px;
-}
-
-.navlinks a {
-  transition: color .2s;
-}
-
-.navlinks a:hover {
-  color: var(--orange);
-}
-
-.cartbtn {
-  border: 1px solid #b8c4ae;
-  padding: 11px 17px;
-  border-radius: 30px;
-  background: transparent;
-  color: var(--forest);
-  font-size: 13px;
-}
-
-.cartbtn:hover {
-  background: var(--forest);
-  color: white;
-}
-
-/* ACCUEIL */
-
-.hero {
-  min-height: 620px;
-  display: grid;
-  grid-template-columns: 1.05fr .95fr;
-  align-items: center;
-  padding: 65px 7vw;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 80% 35%, #dce7d3, transparent 45%),
-    var(--cream);
-}
-
-.hero-text {
-  animation: rise .8s ease both;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: .18em;
-  font-size: 11px;
-  color: var(--leaf);
-  font-weight: 700;
-}
-
-.hero h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  font-size: clamp(48px, 6vw, 86px);
-  line-height: .99;
-  color: var(--forest);
-  margin: 24px 0;
-}
-
-.hero h1 em,
-.pack-content h2 em {
-  font-weight: 400;
-  color: var(--terracotta);
-}
-
-.hero p {
-  max-width: 470px;
-  line-height: 1.85;
-  color: var(--muted);
-  font-size: 16px;
-}
-
-.cta {
-  display: inline-block;
-  margin-top: 22px;
-  background: var(--forest);
-  color: white;
-  border: 0;
-  border-radius: 28px;
-  padding: 15px 25px;
-  font-size: 13px;
-  letter-spacing: .04em;
-}
-
-.cta:hover {
-  background: var(--terracotta);
-  transform: translateY(-2px);
-}
-
-.hero-note {
-  margin-top: 26px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.hero-note span {
-  color: var(--orange);
-  font-size: 17px;
-}
-
-.heroimg {
-  position: relative;
-  height: 450px;
-  display: grid;
-  place-items: center;
-}
-
-.heroimg:before {
-  content: "";
-  width: 390px;
-  height: 390px;
-  background: #dce5d0;
-  border-radius: 50%;
-  position: absolute;
-}
-
-.heroimg img {
-  position: relative;
-  width: min(95%, 530px);
-  max-height: 440px;
-  object-fit: contain;
-  border-radius: 24px;
-  mix-blend-mode: multiply;
-  filter: saturate(.95);
-}
-
-.heroquote {
-  position: absolute;
-  bottom: 18px;
-  right: 2%;
-  background: #fffefae8;
-  padding: 15px 22px;
-  border-radius: 5px;
-  font: italic 16px Georgia, serif;
-  color: var(--forest);
-  box-shadow: 0 8px 30px #243d2410;
-}
-
-/* BANDEAU VALEURS */
-
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  padding: 29px 5vw;
-  border-block: 1px solid var(--line);
-  color: var(--forest);
-  flex-wrap: wrap;
-  background: #fbf8f0;
-}
-
-.features div {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: .08em;
-}
-
-.features b {
-  color: var(--orange);
-  font-size: 20px;
-}
-
-/* SECTIONS */
-
-.section {
-  padding: 90px 7vw;
-}
-
-.sectionhead {
-  text-align: center;
-  max-width: 650px;
-  margin: 0 auto 48px;
-}
-
-.sectionhead h2 {
-  font: 400 clamp(35px, 4vw, 52px) Georgia, serif;
-  color: var(--forest);
-  margin: 14px 0;
-}
-
-.sectionhead p {
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-/* PRODUITS */
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
-}
-
-.card {
-  background: var(--white);
-  border: 1px solid #e9e2d5;
-  border-radius: 15px;
-  overflow: hidden;
-  transition: transform .3s, box-shadow .3s;
-  display: flex;
-  flex-direction: column;
-}
-
-.card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 18px 45px #24492b14;
-}
-
-.productvisual {
-  height: 350px;
-  background:
-    radial-gradient(circle at 50% 50%, #f9f7ef, transparent 70%),
-    #e8e7d9;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.productvisual img.pot {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .5s ease;
-}
-
-.card:hover .productvisual img.pot {
-  transform: scale(1.045);
-}
-
-.productlabel {
-  position: absolute;
-  left: 17%;
-  top: 43%;
-  width: 66%;
-  height: 72px;
-  object-fit: cover;
-  object-position: center;
-  border: 2px solid #e5dcc5;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px #0002;
-  opacity: .97;
-}
-
-.ingredient {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  width: 105px;
-  height: 95px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--cream);
-  box-shadow: 0 4px 15px #0002;
-}
-
-.cardbody {
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.tag {
-  font-size: 10px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--leaf);
-}
-
-.card h3 {
-  font: 28px Georgia, serif;
-  color: var(--forest);
-  margin: 10px 0;
-}
-
-.desc {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--muted);
-  min-height: 50px;
-}
-
-.price {
-  font-weight: 700;
-  color: var(--forest);
-  font-size: 21px;
-  margin: 18px 0 4px;
-}
-
-.weight {
-  font-size: 11px;
-  color: #8b9287;
-}
-
-.stocklabel {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--green);
-}
-
-.stocklabel.stockout {
-  color: #b33c32;
-  font-weight: 700;
-}
-
-.add {
-  margin-top: 20px;
-  width: 100%;
-  background: var(--forest);
-  color: white;
-  border: 0;
-  border-radius: 28px;
-  padding: 14px;
-  font-size: 13px;
-}
-
-.add:hover:not(:disabled) {
-  background: var(--terracotta);
-}
-
-/* PACK */
-
-.pack-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-  padding: 75px 8vw;
-  background:
-    radial-gradient(circle at 20% 80%, #bdcba961, transparent 45%),
-    #e9e1cf;
-  overflow: hidden;
-}
-
-.pack-content h2 {
-  font: 400 clamp(36px, 4.5vw, 60px) Georgia, serif;
-  color: var(--forest);
-  line-height: 1.12;
-  margin: 18px 0;
-}
-
-.pack-content p {
-  color: var(--muted);
-  line-height: 1.8;
-  max-width: 480px;
-}
-
-.pack-price {
-  display: flex;
-  flex-direction: column;
-  margin-top: 28px;
-  gap: 4px;
-}
-
-.old-price {
-  color: var(--muted);
-  text-decoration: line-through;
-  font-size: 14px;
-}
-
-.pack-price strong {
-  font: 700 35px Georgia, serif;
-  color: var(--forest);
-}
-
-.saving {
-  color: var(--terracotta);
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.packvisual {
-  min-height: 370px;
-  display: grid;
-  place-items: center;
-}
-
-.packvisual img {
-  width: 100%;
-  height: 390px;
-  object-fit: contain;
-  border-radius: 18px;
-  mix-blend-mode: multiply;
-  transition: transform .4s;
-}
-
-.packvisual img:hover {
-  transform: scale(1.03);
-}
-
-/* HISTOIRE */
-
-.story {
-  background: var(--forest);
-  color: var(--cream);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.eyebrow.light {
-  color: #c8d9b6;
-}
-
-.story h2 {
-  font: 400 44px Georgia, serif;
-  line-height: 1.2;
-}
-
-.story p {
-  line-height: 1.9;
-  color: #d4dfd0;
-}
-
-.storyvisual {
-  height: 370px;
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.storyvisual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* AVIS */
-
-.reviews-section {
-  background: #fbf8f0;
-}
-
-.reviews-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.reviewcard {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.reviewcard p {
-  line-height: 1.8;
-  color: var(--muted);
-}
-
-.reviewcard small {
-  color: var(--forest);
-  font-weight: 700;
-}
-
-.stars {
-  color: #c88b34;
-  letter-spacing: 3px;
-}
-
-.no-reviews {
-  text-align: center;
-  color: var(--muted);
-  padding: 20px;
-  grid-column: 1 / -1;
-}
-
-.review-form-box {
-  max-width: 650px;
-  margin: 50px auto 0;
-  padding: 30px;
-  background: var(--sand);
-  border-radius: 15px;
-}
-
-.review-form-box h3 {
-  font: 28px Georgia, serif;
-  color: var(--forest);
-}
-
-#reviewForm {
-  display: grid;
-  gap: 12px;
-}
-
-#reviewForm input,
-#reviewForm select,
-#reviewForm textarea {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #d7d2c6;
-  border-radius: 8px;
-  background: white;
-}
-
-#reviewForm textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.review-note {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-/* COMMANDES */
-
-.how {
-  background: #efe9da;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.step {
-  border-top: 1px solid #b9c4ae;
-  padding: 25px 8px;
-  transition: transform .2s;
-}
-
-.step:hover {
-  transform: translateY(-4px);
-}
-
-.step strong {
-  color: var(--terracotta);
-  font: 26px Georgia, serif;
-}
-
-.step h3 {
-  font: 23px Georgia, serif;
-  color: var(--forest);
-}
-
-.step p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-
-/* FOOTER */
-
-.footer {
-  background: #122f20;
-  color: #f4f1e6;
-  padding: 55px 7vw;
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.footer p {
-  color: #c3d0c1;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.footer-brand {
-  color: #f5f0df;
-}
-
-.footerlinks {
-  display: flex;
-  gap: 20px;
-  font-size: 13px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.footerlinks a:hover {
-  color: #d8b28d;
-}
-
-.adminlink {
-  background: none;
-  border: 0;
-  color: #b7c9b4;
-  text-decoration: underline;
-  font-size: 12px;
-}
-
-.creator-credit {
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid #31523a;
-  color: #d4dfd0;
-  font-size: 12px;
-}
-
-.creator-credit a {
-  text-decoration: underline;
-  color: #f4f1e6;
-}
-
-/* PANIER */
-
-.cartdrawer {
-  position: fixed;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: min(430px, 100%);
-  background: var(--white);
-  z-index: 30;
-  box-shadow: -20px 0 70px #0002;
-  transform: translateX(105%);
-  transition: .3s;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-}
-
-.cartdrawer.open {
-  transform: translateX(0);
-}
-
-.carthead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 15px;
-}
-
-.carthead h2 {
-  font: 29px Georgia, serif;
-  color: var(--forest);
-}
-
-.close {
-  background: none;
-  border: 0;
-  font-size: 27px;
-  color: var(--forest);
-}
-
-.cartitems {
-  overflow: auto;
-  flex: 1;
-  padding: 15px 0;
-}
-
-.cartrow {
-  padding: 14px 0;
-  border-bottom: 1px solid #eee;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-}
-
-.cartrow small {
-  display: block;
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.qty button {
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-}
-
-.qty button:hover {
-  background: var(--sage);
-}
-
-.total {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  padding: 18px 0;
-  border-top: 1px solid #ddd;
-  color: var(--forest);
-}
-
-.checkout {
-  display: grid;
-  gap: 10px;
-}
-
-.checkout input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-}
-
-.whatsapp {
-  background: #1f7045;
-  color: white;
-  border: 0;
-  border-radius: 28px;
-  padding: 15px;
-}
-
-.whatsapp:hover {
-  background: #14552f;
-}
-
-.cartnote {
-  font-size: 11px;
-  color: #777;
-  line-height: 1.6;
-}
-
-.emptycart {
-  color: #777;
-}
-
-/* ADMIN */
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: #1c2a1f77;
-  z-index: 25;
-  display: none;
-}
-
-.overlay.show {
-  display: block;
-}
-
-.admin {
-  position: fixed;
-  inset: 4%;
-  background: var(--white);
-  border-radius: 16px;
-  z-index: 40;
-  display: none;
-  overflow: auto;
-  padding: 30px;
-}
-
-.admin.show {
-  display: block;
-}
-
-.admin h2 {
-  font: 34px Georgia, serif;
-  color: var(--forest);
-}
-
-.admin h3 {
-  font: 24px Georgia, serif;
-  color: var(--forest);
-  margin-top: 30px;
-}
-
-.adminclose {
-  float: right;
-}
-
-.adminwarning {
-  background: #f7f0dd;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 12px;
-  line-height: 1.7;
-  margin: 20px 0;
-}
-
-.adminrow {
-  display: grid;
-  grid-template-columns: 1.2fr repeat(3, minmax(110px, .7fr));
-  gap: 12px;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.adminrow input,
-.adminadd input,
-.adminadd textarea,
-.packadmin input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  width: 100%;
-}
-
-.adminrow label,
-.packadmin label {
-  display: grid;
-  gap: 5px;
-  font-size: 12px;
-}
-
-.adminproductname small {
-  display: block;
-  color: #777;
-  margin-top: 5px;
-}
-
-.adminphoto {
-  grid-column: span 2;
-}
-
-.deleteproduct {
-  border: 0;
-  background: #a33b32;
-  color: white;
-  padding: 10px;
-  border-radius: 6px;
-}
-
-.adminadd {
-  margin: 25px 0;
-  padding: 22px;
-  background: #f5f0e4;
-  border-radius: 12px;
-}
-
-.adminadd h3 {
-  margin-top: 0;
-}
-
-#addproductform {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-#addproductform textarea {
-  grid-column: 1/-1;
-  min-height: 80px;
-}
-
-#addproductform button {
-  background: var(--forest);
-  color: white;
-  border: 0;
-  border-radius: 25px;
-  padding: 12px 18px;
-}
-
-.packadmin {
-  max-width: 400px;
-  display: grid;
-  gap: 10px;
-}
-
-.save {
-  background: var(--forest);
-  color: white;
-  border: 0;
-  padding: 12px 18px;
-  border-radius: 25px;
-  margin-top: 20px;
-}
-
-.save:hover,
-#addproductform button:hover {
-  background: var(--terracotta);
-}
-
-.statsgrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.statbox {
-  background: #f1eddf;
-  padding: 18px;
-  border-radius: 10px;
-}
-
-.statbox small {
-  display: block;
-  color: var(--muted);
-}
-
-.statbox strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 22px;
-  color: var(--forest);
-}
-
-.stockalert {
-  padding: 10px;
-  margin: 6px 0;
-  background: #f8e9d9;
-  border-radius: 7px;
-  color: #8a3a14;
-  font-size: 13px;
-}
-
-.statsnote {
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--muted);
-  margin-top: 15px;
-}
-
-/* NOTIFICATION */
-
-.toast {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--forest);
-  color: white;
-  padding: 13px 22px;
-  border-radius: 25px;
-  z-index: 60;
-  display: none;
-  font-size: 13px;
-  box-shadow: 0 5px 20px #0002;
-}
-
-.toast.show {
-  display: block;
-  animation: rise .25s ease;
-}
-
-/* ANIMATIONS */
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* TABLETTE */
-
-@media (max-width: 1000px) {
-  .nav {
-    padding-inline: 4vw;
-  }
-
-  .navlinks {
-    gap: 15px;
-  }
-
-  .hero {
-    padding-inline: 5vw;
-  }
-
-  .products {
-    gap: 18px;
-  }
-
-  .productvisual {
-    height: 290px;
-  }
-
-  .pack-section {
-    padding-inline: 5vw;
-    gap: 25px;
-  }
-
-  .adminrow {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* PETITS ECRANS */
-
-@media (max-width: 750px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 50px 6vw;
-  }
-
-  .heroimg {
-    height: 330px;
-  }
-
-  .heroimg:before {
-    width: 290px;
-    height: 290px;
-  }
-
-  .products {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .pack-section {
-    grid-template-columns: 1fr;
-  }
-
-  .packvisual {
-    min-height: 280px;
-  }
-
-  .packvisual img {
-    height: 300px;
-  }
-
-  .story {
-    grid-template-columns: 1fr;
-  }
-
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .reviews-list {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .navlinks {
-    display: none;
-  }
-}
-
-/* TELEPHONE */
-
-@media (max-width: 560px) {
-  .nav {
-    min-height: 70px;
-    padding: 10px 4vw;
-  }
-
-  .brandname {
-    font-size: 19px;
-  }
-
-  .brandname small {
-    font-size: 8px;
-  }
-
-  .brandmark {
-    width: 36px;
-    height: 36px;
-  }
-
-  .cartbtn {
-    padding: 10px;
-    font-size: 11px;
-  }
-
-  .hero h1 {
-    font-size: 53px;
-  }
-
-  .heroimg {
-    height: 265px;
-  }
-
-  .heroimg:before {
-    width: 230px;
-    height: 230px;
-  }
-
-  .features {
-    gap: 15px;
-    padding: 22px;
-  }
-
-  .features div {
-    font-size: 10px;
-  }
-
-  .section {
-    padding: 60px 5vw;
-  }
-
-  .products {
-    grid-template-columns: 1fr;
-  }
-
-  .productvisual {
-    height: 330px;
-  }
-
-  .cardbody {
-    padding: 22px;
-  }
-
-  .steps {
-    grid-template-columns: 1fr;
-  }
-
-  .story h2 {
-    font-size: 35px;
-  }
-
-  .storyvisual {
-    height: 280px;
-  }
-
-  .pack-section {
-    padding: 55px 6vw;
-  }
-
-  .pack-content h2 {
-    font-size: 42px;
-  }
-
-  .reviews-list {
-    grid-template-columns: 1fr;
-  }
-
-  .review-form-box {
-    padding: 20px;
-  }
-
-  .footer {
-    padding: 35px 5vw;
-  }
-
-  .footerlinks {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .admin {
-    inset: 2%;
-    padding: 18px;
-  }
-
-  .adminrow {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .adminphoto {
-    grid-column: 1/-1;
-  }
-
-  #addproductform {
-    grid-template-columns: 1fr;
-  }
-
-  #addproductform textarea {
-    grid-column: auto;
-  }
-
-  .statsgrid {
-    grid-template-columns: 1fr;
-  }
-}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Piwan Production — La nature au service de votre peau</title>
+  <meta name="description" content="Savons artisanaux Piwan Production, préparés à la main avec soin.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top">SAVONS ARTISANAUX · FABRIQUÉS À LA MAIN AU SÉNÉGAL</div>
+  
+  <header class="nav">
+    <a class="brand" href="#home">
+      <span class="brandmark">🌿</span>
+      <span class="brandname">Piwan Production<small>LA NATURE AU SERVICE DE VOTRE PEAU</small></span>
+    </a>
+    <nav class="navlinks">
+      <a href="#shop">La boutique</a>
+      <a href="#story">Notre savoir-faire</a>
+      <a href="#how">Commander</a>
+    </nav>
+    <button class="cartbtn" onclick="openCart()">Panier <span id="cartcount">0</span> · <span id="carttotal">0</span> FCFA</button>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Le soin du fait main</span>
+        <h1>La nature.<br><em>Tout simplement.</em></h1>
+        <p>Des savons artisanaux inspirés de la nature sénégalaise, préparés avec soin et passion pour accompagner vos gestes du quotidien.</p>
+        <a class="cta" href="#shop">Découvrir nos savons&nbsp; ↗</a>
+      </div>
+      <div class="heroimg">
+        <img src="assets/moringa.jpg" alt="Feuilles de moringa et poudre naturelle">
+        <div class="heroquote">Des gestes simples, une attention sincère.</div>
+      </div>
+    </section>
+
+    <div class="features">
+      <div><b>✳</b> FABRIQUÉ À LA MAIN</div>
+      <div><b>♧</b> INSPIRÉ DE LA NATURE</div>
+      <div><b>♡</b> PRÉPARÉ AVEC SOIN</div>
+    </div>
+
+    <section class="section" id="shop">
+      <div class="sectionhead">
+        <span class="eyebrow">Notre collection</span>
+        <h2>Des soins, naturellement.</h2>
+        <p>Découvrez nos savons artisanaux. Chaque pot est préparé avec soin, dans le respect de notre savoir-faire.</p>
+      </div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section class="section story" id="story">
+      <div>
+        <span class="eyebrow" style="color:#c8d9b6">Notre philosophie</span>
+        <h2>Le soin du fait main,<br>pour une peau heureuse.</h2>
+        <p>Chez Piwan Production, nous croyons à la simplicité, à la nature et au soin apporté à chaque préparation. Nos savons sont fabriqués artisanalement et inspirés d'ingrédients que nous aimons.</p>
+        <p>Une petite attention, préparée avec passion.</p>
+      </div>
+      <div class="storyvisual">
+        <img src="assets/mbeurbeuf-plant.jpg" alt="Plante Mbeurbeuf aux fleurs jaunes">
+      </div>
+    </section>
+
+    <section class="section how" id="how">
+      <div class="sectionhead">
+        <span class="eyebrow">En quelques étapes</span>
+        <h2>Votre commande, tout simplement.</h2>
+        <p>Choisissez vos savons, validez votre panier et nous vous recontactons pour la livraison.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><strong>01</strong><h3>Choisissez</h3><p>Parcourez la collection et ajoutez vos savons préférés au panier.</p></div>
+        <div class="step"><strong>02</strong><h3>Validez</h3><p>Remplissez vos coordonnées directement sur le site pour enregistrer votre commande.</p></div>
+        <div class="step"><strong>03</strong><h3>Récupérez</h3><p>Notre équipe vous contacte rapidement pour organiser la remise ou la livraison.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <div class="brandname" style="color:#f5f0df">Piwan Production<small>LA NATURE AU SERVICE DE VOTRE PEAU</small></div>
+      <p>Des savons artisanaux, faits à la main<br>avec soin et passion.</p>
+      <div class="creator-credit">Site réalisé par <strong>SARR Fatou</strong> · <a href="mailto:sarrfatousn221@gmail.com">sarrfatousn221@gmail.com</a></div>
+    </div>
+    <div class="footerlinks">
+      <a href="#shop">La boutique</a>
+      <a href="#how">Commander</a>
+      <a href="https://wa.me/221776661187" target="_blank">Contact WhatsApp ↗</a>
+      <button class="adminlink" onclick="openLogin()">Espace Gestion</button>
+    </div>
+  </footer>
+
+  <!-- PANIER CLIENT -->
+  <div class="overlay" id="overlay" onclick="closePanels()"></div>
+  <aside class="cartdrawer" id="cart">
+    <div class="carthead">
+      <h2>Votre panier</h2>
+      <button class="close" onclick="closePanels()">×</button>
+    </div>
+    <div class="cartitems" id="cartitems"></div>
+    <div class="total"><span>Total</span><span id="totalprice">0 FCFA</span></div>
+    <form class="checkout" onsubmit="event.preventDefault();submitOrder()">
+      <input id="customername" placeholder="Votre nom complet" required>
+      <input id="customerphone" placeholder="Votre numéro de téléphone" required>
+      <input id="customeremail" type="email" placeholder="E-mail (facultatif)">
+      <input id="customerlocation" placeholder="Quartier / Ville de livraison" required>
+      <button class="whatsapp" type="submit">Valider ma commande</button>
+      <button class="wave" type="button" onclick="waveInfo()">Voir les infos paiement Wave</button>
+    </form>
+    <p style="font-size:11px;color:#777;line-height:1.5">Votre commande sera enregistrée dans notre système et nous vous contacterons par téléphone.</p>
+  </aside>
+
+  <!-- CONNEXION ADMINISTRATEUR -->
+  <section class="login-modal" id="loginModal">
+    <button class="close" style="float:right" onclick="closePanels()">×</button>
+    <h2>Connexion Administration</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Connectez-vous pour gérer vos produits et voir les commandes reçues.</p>
+    <form onsubmit="event.preventDefault();handleLogin()" class="login-form">
+      <input type="email" id="adminEmail" placeholder="Adresse e-mail" required>
+      <input type="password" id="adminPass" placeholder="Mot de passe" required>
+      <button type="submit" class="save" style="width:100%;margin-top:10px;">Se connecter</button>
+    </form>
+  </section>
+
+  <!-- PANNEAU ADMINISTRATEUR COMPLET -->
+  <section class="admin" id="admin">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:15px;margin-bottom:20px;">
+      <h2 style="margin:0;">Espace Gestion Piwan</h2>
+      <div>
+        <button onclick="logoutAdmin()" style="background:#eee;border:0;padding:8px 14px;border-radius:20px;cursor:pointer;margin-right:10px;font-size:12px;">Déconnexion</button>
+        <button class="close" onclick="closePanels()">×</button>
+      </div>
+    </div>
+
+    <!-- ONGLETS DE NAVIGATION ADMIN -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('orders-tab', this)">📦 Commandes reçues (<span id="orderCountBadge">0</span>)</button>
+      <button class="tab-btn" onclick="switchTab('products-tab', this)">🧼 Gérer les produits</button>
+    </div>
+
+    <!-- ONGLET 1 : COMMANDES -->
+    <div id="orders-tab" class="tab-content active">
+      <p class="adminnote">Les commandes validées par vos clients sur le site s'affichent ici automatiquement.</p>
+      <div id="ordersList" style="margin-top:15px;"></div>
+    </div>
+
+    <!-- ONGLET 2 : PRODUITS -->
+    <div id="products-tab" class="tab-content" style="display:none;">
+      <div id="adminrows"></div>
+      <div class="adminadd">
+        <h3>Ajouter un nouveau produit (ex: Pack 3 savons)</h3>
+        <form id="addproductform" class="adminaddgrid">
+          <input id="newname" placeholder="Nom du produit (ex: Pack Découverte 3 Savons)" required>
+          <input id="newprice" type="number" min="0" placeholder="Prix en FCFA (ex: 4000)" required>
+          <input id="newweight" placeholder="Poids (ex: 3 x 250 g)" value="250 g">
+          <input id="newbadge" placeholder="Petit label (ex: Offre Spéciale)">
+          <textarea id="newdesc" placeholder="Description du produit"></textarea>
+          <label style="font-size:12px">Photo principale <input id="newphoto" type="file" accept="image/*"></label>
+          <label style="font-size:12px">Photo ingrédient <input id="newingredient" type="file" accept="image/*"></label>
+          <button type="submit">Ajouter à la boutique</button>
+        </form>
+      </div>
+      <button class="save" onclick="saveAdmin()">Enregistrer les modifications de prix/stock</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
