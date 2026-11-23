@@ -4,9 +4,9 @@ const ADMIN_EMAIL = "ndongpierrewaly03@gmail.com";
 const ADMIN_PASS = "piwan_savons221";
 
 const defaults = [
-  {id:'carotte',name:'Savon Carotte',short:'Doux, purifiant & revitalisant',price:1500,weight:'250 g',img:'assets/carotte-pot-clean.jpg',label:'assets/carotte-label.jpg',ingredient:'assets/carotte-ingredient.jpg',badge:'À la carotte',stock:10},
-  {id:'nebeday',name:'Savon Nébéday',short:'Frais, nourrissant & apaisant',price:1500,weight:'250 g',img:'assets/nebeday-pot-clean.jpg',label:'assets/nebeday-label.jpg',ingredient:'assets/moringa.jpg',badge:'Au moringa',stock:10},
-  {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'assets/mbeurbeuf-pot-clean.jpg',label:'assets/mbeurbeuf-label.jpg',ingredient:'assets/mbeurbeuf-plant.jpg',badge:'Au Mbeurbeuf',stock:10}
+  {id:'carotte',name:'Savon Carotte',short:'Doux, purifiant & revitalisant',price:1500,weight:'250 g',img:'assets/pot-carotte.webp',label:'assets/carotte-label.jpg',ingredient:'assets/ing-carotte.webp',badge:'À la carotte',stock:10},
+  {id:'nebeday',name:'Savon Nébéday',short:'Frais, nourrissant & apaisant',price:1500,weight:'250 g',img:'assets/pot-nebeday.webp',label:'assets/nebeday-label.jpg',ingredient:'assets/ing-nebeday.webp',badge:'Au moringa',stock:10},
+  {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'assets/pot-mbeurbeuf.webp',label:'assets/mbeurbeuf-label.jpg',ingredient:'assets/ing-mbeurbeuf.webp',badge:'Au Mbeurbeuf',stock:10}
 ];
 
 let products = JSON.parse(localStorage.getItem('piwanProducts') || 'null') || defaults;
