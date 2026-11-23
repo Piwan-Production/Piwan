@@ -6,7 +6,7 @@ const ADMIN_PASS = "piwan_savons221";
 const defaults = [
   {id:'carotte',name:'Savon Carotte',short:'Doux, purifiant & revitalisant',price:1500,weight:'250 g',img:'pot-carotte.webp',label:'carotte-label.jpg',ingredient:'ing-carotte.webp',badge:'À la carotte',stock:10},
   {id:'nebeday',name:'Savon Nébéday',short:'Frais, nourrissant & apaisant',price:1500,weight:'250 g',img:'pot-nebeday.webp',label:'nebeday-label.jpg',ingredient:'ing-nebeday.webp',badge:'Au moringa',stock:10},
-  {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'pot-mbeurbeuf.webp',label:'mbeurbeuf-label.jpg',ingredient:'ing-mbeurbeuf.webp',badge:'Au Mbeurbeuf',stock:10}
+  {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'pot-mbeurbeuf.webp',label:'mbeurbeuf-label.jpg',ingredient:'ing-mbeurbeuf.webp',badge:'À la margose',stock:10}
 ];
 
 let products = JSON.parse(localStorage.getItem('piwanProducts') || 'null') || defaults;
