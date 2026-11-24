@@ -4,7 +4,6 @@ const ADMIN_EMAIL = "ndongpierrewaly03@gmail.com";
 const ADMIN_PASS = "piwan_savons221";
 
 const defaults = [
-  {id:'offre special',name:'Pack Découverte',short:'Offre spéciale fin d'année',price:1500,weight:'3*250 g',img:'hero-trio.webp',stock:10},
   {id:'carotte',name:'Savon Carotte',short:'Doux, purifiant & revitalisant',price:1500,weight:'250 g',img:'pot-carotte.webp',stock:10},
   {id:'nebeday',name:'Savon Nébéday',short:'Frais, nourrissant & apaisant',price:1500,weight:'250 g',img:'pot-nebeday.webp',stock:10},
   {id:'mbeurbeuf',name:'Savon Mbeurbeuf',short:'Purifiant, anti-imperfections & éclat',price:1500,weight:'250 g',img:'pot-mbeurbeuf.webp',stock:10}
