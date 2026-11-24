@@ -19,14 +19,48 @@ function money(n) {
 }
 
 // --- AFFICHAGE DES PRODUITS ---
-function renderProducts() {
-  document.getElementById('products').innerHTML = products.map(p => `
-    <article class="card">
-      <div class="productvisual">
-        <img class="pot" src="${p.img}" alt="${p.name}, pot de savon">
-        <img class="productlabel" src="${p.label||''}" alt="Étiquette ${p.name}" onerror="this.style.display='none'">
-        <img class="ingredient" src="${p.ingredient}" alt="Ingrédient associé" onerror="this.style.display='none'">
-      </div>
+const defaults = [
+  {
+    id: 'carotte',
+    name: 'Savon Carotte',
+    short: 'Doux, purifiant & revitalisant',
+    price: 1500,
+    weight: '250 g · Préparé à la main',
+    img: 'pot-carotte.webp',
+    badge: 'À LA CAROTTE',
+    stock: 10
+  },
+  {
+    id: 'nebeday',
+    name: 'Savon Nébéday',
+    short: 'Frais, nourrissant & apaisant',
+    price: 1500,
+    weight: '250 g · Préparé à la main',
+    img: 'pot-nebeday.webp',
+    badge: 'AU MORINGA',
+    stock: 10
+  },
+  {
+    id: 'mbeurbeuf',
+    name: 'Savon Mbeurbeuf',
+    short: 'Purifiant, anti-imperfections & éclat',
+    price: 1500,
+    weight: '250 g · Préparé à la main',
+    img: 'pot-mbeurbeuf',
+    badge: 'À LA MARGOSE',
+    stock: 10
+  },
+  {
+    id: 'pack',
+    name: 'Pack Découverte',
+    short: 'Les 3 savons réunis à prix préférentiel',
+    price: 4000,
+    weight: '3 x 250 g · Coffret complet',
+    img: 'hero-trio.webp',
+    badge: 'Offre spéciale',
+    stock: 15
+  }
+];
       <div class="cardbody">
         <span class="tag">${p.badge || 'Savon artisanal'}</span>
         <h3>${p.name}</h3>
