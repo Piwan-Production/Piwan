@@ -47,22 +47,16 @@ const defaults = [
   }
 ];
 
-// Initialisation du localStorage si vide
-if (!localStorage.getItem('products')) {
-  localStorage.setItem('products', JSON.stringify(defaults));
-}
-
-// Fonction de formatage des prix en FCFA
 function money(amount) {
   return amount.toLocaleString() + ' FCFA';
 }
 
-// Fonction d'affichage des produits dans la boutique
 function renderProducts() {
   const container = document.getElementById('product-grid');
   if (!container) return;
   
-  const products = JSON.parse(localStorage.getItem('products')) || defaults;
+  // Force l'utilisation des produits par défaut pour éviter le cache bloqué
+  const products = defaults;
   
   container.innerHTML = products.map(p => `
     <article class="product-card">
@@ -81,7 +75,7 @@ function renderProducts() {
   `).join('');
 }
 
-// Lancement au chargement de la page
-document.addEventListener('DOMContentLoaded', () => {
-  renderProducts();
-});
+// Exécution immédiate et au chargement
+document.addEventListener('DOMContentLoaded', renderProducts);
+window.onload = renderProducts;
+renderProducts();
